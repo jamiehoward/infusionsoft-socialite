@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialiteProviders\Infusionsoft;
+namespace InfusionsoftSocialite;
 
 use Laravel\Socialite\Two\ProviderInterface;
 use SocialiteProviders\Manager\OAuth2\AbstractProvider;
