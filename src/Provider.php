@@ -2,9 +2,10 @@
 
 namespace InfusionsoftSocialite;
 
+use Infusionsoft\Infusionsoft;
+use SocialiteProviders\Manager\OAuth2\User;
 use Laravel\Socialite\Two\ProviderInterface;
 use SocialiteProviders\Manager\OAuth2\AbstractProvider;
-use SocialiteProviders\Manager\OAuth2\User;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
@@ -34,12 +35,17 @@ class Provider extends AbstractProvider implements ProviderInterface
         return 'https://api.infusionsoft.com/token';
     }
 
+    public function getToken()
+    {
+        return $this->getAccessTokenResponse($this->getCode());
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get('', [
+        $response = $this->getHttpClient()->get($this->getTokenUrl(), [
             'headers' => [
                 'Authorization' => 'Bearer '.$token,
             ],
